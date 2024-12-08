@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpHub - Charities List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>HelpHub</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="charities_list.html">Charities List</a>
+            <a href="charity_profile.html">Charity Profile</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Charities List</h1>
+        <p>Explore the incredible work of the following charities, each making a positive impact on communities around the world. Learn more about their missions and how you can help as a volunteer.</p>
+        
+        <!-- Saint Joseph Charity -->
+        <section>
+            <h3>Saint Joseph</h3>
+            <p><strong>Founded:</strong> 1995</p>
+            <p><strong>Mission:</strong> Saint Joseph charity is dedicated to providing food, shelter, and community support for families in need. They focus on empowering vulnerable individuals and offering a path to stability through housing, education, and healthcare services.</p>
+            <p><strong>Areas of Impact:</strong> Nationwide outreach, assisting homeless families, food banks, and local community development.</p>
+            <button onclick="window.location.href='https://www.supportstjosephs.org/donate'">Volunteer to Saint Joseph</button>
+        </section>
+
+        <!-- Make-A-Wish Foundation -->
+        <section>
+            <h3>Make-A-Wish Foundation</h3>
+            <p><strong>Founded:</strong> 1980</p>
+            <p><strong>Mission:</strong> The Make-A-Wish Foundation grants seriously ill children the chance to fulfill their most heartfelt wish, whether it's meeting a celebrity, visiting a dream destination, or participating in a special event. Their work brings hope, strength, and joy to children in difficult circumstances.</p>
+            <p><strong>Areas of Impact:</strong> Nationwide (United States), supporting children with life-threatening conditions and their families through wish experiences.</p>
+            <button onclick="window.location.href='https://secure2.wish.org/site/SPageServer?pagename=donate_today&ft=SPEA&fi=23_124&chid=100-000&pf=true&level1=15&level2=25&level3=50&level4=100&level5=500&level6=1000&presel=level4&Campaign_ID=MNOO%25fy%25&Appeal_ID=%25fy%25ON-XXX-SRCH&Package_ID=OT-NT-FY23MWSRCHB&Subtype=DEV-Multimedia%20Online&s_src=ads-bing-d2d&s_subsrc=mw-ads-bing-search-brand-intent-d2d-0723&gclsrc=aw.ds&msclkid=5b6d3d115a501d97df545a44b63bba7c&utm_source=bing&utm_medium=cpc&utm_campaign=MW%20-%20Branded%20Search%20-%2007-23&utm_term=make%20a%20wish%20donate&utm_content=Branded%20-%20Donation%20Intent'">Volunteer to Make a Wish</button>
+        </section>
+
+        <!-- Children International -->
+        <section>
+            <h3>Children International</h3>
+            <p><strong>Founded:</strong> 1936</p>
+            <p><strong>Mission:</strong> Children International helps children in poverty from an early age, offering comprehensive support through education, health services, and life skills training. Their focus is to break the cycle of poverty for children and families globally.</p>
+            <p><strong>Areas of Impact:</strong> Global reach, with a focus on education, nutrition, healthcare, and family support in developing countries.</p>
+            <button onclick="window.location.href='https://www.children.org/make-a-difference/ways-to-donate'">Volunteer to Children International</button>
+        </section>
+		
+		<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const apiKey = "b112663d29cf1fc15d1c511802b5cf39"; // API key
+			const lat = 40.7128; // Latitude for New York
+			const lon = -74.0060; // Longitude for New York
+			const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+			fetch(apiUrl)
+				.then(res => {
+					console.log(res.ok); // Check if response is ok (status 200–299)
+					console.log(res.status); // Status code of the response (should be 200)
+					return res.json(); // Parse the JSON data from the response
+				})
+				.then(data => {
+					console.log("Weather Data:", data); // Log the weather data to the console
+					displayWeatherData(data); // Call function to display the data on your webpage
+				})
+				.catch(error => {
+					console.error("Error fetching weather data:", error); // Catch any errors
+				});
+
+			// Function to display weather data (simple example)
+			function displayWeatherData(data) {
+				const weatherElement = document.getElementById("weather");
+				weatherElement.innerHTML = `
+					<h2>Weather Forecast</h2>
+					<p>Location: ${data.city.name}, ${data.city.country}</p>
+					<ul>
+						${data.list.slice(0, 5).map(forecast => `
+							<li>
+								<strong>${new Date(forecast.dt * 1000).toLocaleString()}</strong>: 
+								${forecast.main.temp}°C, ${forecast.weather[0].description}
+							</li>
+						`).join('')}
+					</ul>
+				`;
+			}
+		});
+		</script>
+		
+		<div id="weather" style="margin: 20px; padding: 10px; border: 1px solid #ddd;">
+			<p>Loading weather data...</p>
+		</div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HelpHub. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

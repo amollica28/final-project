@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpHub - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>HelpHub</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="charities_list.html">Charities List</a>
+            <a href="charity_profile.html">Charity Profile</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h1>Make A Difference</h1>
+            <h3>HelpHub's mission is to unite passionate volunteers in supporting local charities!</h3>
+            <p>At HelpHub, we believe in the power of community and the impact of giving back. Our platform connects volunteers with charities that are making a real difference. Whether you want to lend a helping hand, contribute your skills, or make a donation, HelpHub is the place to start.</p>
+
+            <h4>Why Volunteer?</h4>
+            <p>Volunteering not only helps those in need but also enriches your own life. Volunteering can give you a sense of purpose, build new friendships, and open up opportunities for personal growth. Many of our partner charities are looking for volunteers in a variety of roles, from hands-on support to behind-the-scenes contributions.</p>
+
+            <h4>How You Can Help</h4>
+            <p>Visit our <a href="charities_list.html">Charities List</a> page to explore the incredible work of our charity partners. Each organization offers unique ways for you to contribute, whether through volunteer opportunities or donations. You can also check out our <a href="charity_profile.html">Charity Profile</a> page to learn more about each charity’s mission and how you can make a difference.</p>
+
+            <h4>Get Involved Today</h4>
+            <p>Ready to make an impact? Sign up now to volunteer and join a community dedicated to positive change. Every small action counts!</p>
+
+            <button onclick="window.location.href='charities_list.html'">Browse Charities</button>
+            <button onclick="window.location.href='charity_profile.html'">Learn More About Our Charities</button>
+        </section>
+
+        <section>
+            <h2>Our Vision</h2>
+            <p>We envision a world where every individual can contribute to causes that matter, creating lasting change and a stronger, more connected community. By providing a platform for easy access to charity information and volunteer opportunities, we aim to make volunteering and giving back accessible for everyone.</p>
+        </section>
+
+        <section>
+            <h2>Join the HelpHub Community</h2>
+            <p>Become a part of a network of like-minded individuals who are passionate about making the world a better place. Share your experiences, collaborate with others, and help build a future where kindness and support are always within reach.</p>
+            <button onclick="window.location.href='contact.html'">Contact Us</button>
+        </section>
+		<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const apiKey = "b112663d29cf1fc15d1c511802b5cf39"; // API key
+			const lat = 37.7749; // Latitude for San Francisco
+			const lon = -122.4194; // Longitude for San Francisco 
+			const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+			fetch(apiUrl)
+				.then(res => {
+					console.log(res.ok); // Check if response is ok (status 200–299)
+					console.log(res.status); // Status code of the response (should be 200)
+					return res.json(); // Parse the JSON data from the response
+				})
+				.then(data => {
+					console.log("Weather Data:", data); // Log the weather data to the console
+					displayWeatherData(data); // Call function to display the data on your webpage
+				})
+				.catch(error => {
+					console.error("Error fetching weather data:", error); // Catch any errors
+				});
+
+			// Function to display weather data (simple example)
+			function displayWeatherData(data) {
+				const weatherElement = document.getElementById("weather");
+				weatherElement.innerHTML = `
+					<h2>Weather Forecast</h2>
+					<p>Location: ${data.city.name}, ${data.city.country}</p>
+					<ul>
+						${data.list.slice(0, 5).map(forecast => `
+							<li>
+								<strong>${new Date(forecast.dt * 1000).toLocaleString()}</strong>: 
+								${forecast.main.temp}°C, ${forecast.weather[0].description}
+							</li>
+						`).join('')}
+					</ul>
+				`;
+			}
+		});
+		</script>
+		
+		<div id="weather" style="margin: 20px; padding: 10px; border: 1px solid #ddd;">
+			<p>Loading weather data...</p>
+		</div>
+		
+    </main>
+    <footer>
+        <p>&copy; 2024 HelpHub. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

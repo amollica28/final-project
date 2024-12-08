@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpHub - Charity Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>HelpHub</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="charities_list.html">Charities List</a>
+            <a href="charity_profile.html">Charity Profile</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Saint Joseph Charity Profile -->
+        <section>
+            <h1>Saint Joseph - Volunteer Now</h1>
+            <p>Saint Joseph is a charity dedicated to providing food, shelter, and community support for families in need. Your time and support can make a real difference!</p>
+
+            <!-- "Volunteer Now" Button -->
+            <button id="volunteerBtnSaintJoseph">Volunteer Now</button>
+
+            <!-- Hidden Contact Form -->
+            <div id="volunteerFormSaintJoseph" style="display: none;">
+                <h3>Contact Information</h3>
+                <form id="volunteerContactFormSaintJoseph">
+                    <label for="name">Full Name:</label><br>
+                    <input type="text" id="nameSaintJoseph" name="name" required><br><br>
+                    
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="emailSaintJoseph" name="email" required><br><br>
+                    
+                    <label for="message">Message:</label><br>
+                    <textarea id="messageSaintJoseph" name="message" rows="4" cols="50" placeholder="Let us know why you want to volunteer..." required></textarea><br><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Make-A-Wish Foundation Charity Profile -->
+        <section>
+            <h1>Make-A-Wish Foundation - Volunteer Now</h1>
+            <p>The Make-A-Wish Foundation grants seriously ill children the chance to fulfill their most heartfelt wish, whether it's meeting a celebrity, visiting a dream destination, or participating in a special event. Your support brings hope, strength, and joy to children in difficult circumstances.</p>
+
+            <!-- "Volunteer Now" Button -->
+            <button id="volunteerBtnMakeAWish">Volunteer Now</button>
+
+            <!-- Hidden Contact Form -->
+            <div id="volunteerFormMakeAWish" style="display: none;">
+                <h3>Contact Information</h3>
+                <form id="volunteerContactFormMakeAWish">
+                    <label for="name">Full Name:</label><br>
+                    <input type="text" id="nameMakeAWish" name="name" required><br><br>
+                    
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="emailMakeAWish" name="email" required><br><br>
+                    
+                    <label for="message">Message:</label><br>
+                    <textarea id="messageMakeAWish" name="message" rows="4" cols="50" placeholder="Let us know why you want to volunteer..." required></textarea><br><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Children International Charity Profile -->
+        <section>
+            <h1>Children International - Volunteer Now</h1>
+            <p>Children International helps children in poverty from an early age, offering comprehensive support through education, health services, and life skills training. Your involvement can break the cycle of poverty for children and families around the world.</p>
+
+            <!-- "Volunteer Now" Button -->
+            <button id="volunteerBtnChildrenInternational">Volunteer Now</button>
+
+            <!-- Hidden Contact Form -->
+            <div id="volunteerFormChildrenInternational" style="display: none;">
+                <h3>Contact Information</h3>
+                <form id="volunteerContactFormChildrenInternational">
+                    <label for="name">Full Name:</label><br>
+                    <input type="text" id="nameChildrenInternational" name="name" required><br><br>
+                    
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="emailChildrenInternational" name="email" required><br><br>
+                    
+                    <label for="message">Message:</label><br>
+                    <textarea id="messageChildrenInternational" name="message" rows="4" cols="50" placeholder="Let us know why you want to volunteer..." required></textarea><br><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Additional Interactive Charity Information -->
+        <section>
+            <h2>More About Saint Joseph</h2>
+            <p id="charityDetailsSaintJoseph">Hover over the text below to learn more about Saint Joseph's outreach programs.</p>
+
+            <h2>More About Make-A-Wish Foundation</h2>
+            <p id="charityDetailsMakeAWish">Hover over the text below to learn more about Make-A-Wish's outreach programs.</p>
+
+            <h2>More About Children International</h2>
+            <p id="charityDetailsChildrenInternational">Hover over the text below to learn more about Children International's outreach programs.</p>
+        </section>
+
+		<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const apiKey = "b112663d29cf1fc15d1c511802b5cf39"; // API key
+			const lat = 41.8781; // Latitude for Chicago
+			const lon = -87.6298; // Longitude for Chicago
+			const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+			fetch(apiUrl)
+				.then(res => {
+					console.log(res.ok); // Check if response is ok (status 200–299)
+					console.log(res.status); // Status code of the response (should be 200)
+					return res.json(); // Parse the JSON data from the response
+				})
+				.then(data => {
+					console.log("Weather Data:", data); // Log the weather data to the console
+					displayWeatherData(data); // Call function to display the data on your webpage
+				})
+				.catch(error => {
+					console.error("Error fetching weather data:", error); // Catch any errors
+				});
+
+			// Function to display weather data (simple example)
+			function displayWeatherData(data) {
+				const weatherElement = document.getElementById("weather");
+				weatherElement.innerHTML = `
+					<h2>Weather Forecast</h2>
+					<p>Location: ${data.city.name}, ${data.city.country}</p>
+					<ul>
+						${data.list.slice(0, 5).map(forecast => `
+							<li>
+								<strong>${new Date(forecast.dt * 1000).toLocaleString()}</strong>: 
+								${forecast.main.temp}°C, ${forecast.weather[0].description}
+							</li>
+						`).join('')}
+					</ul>
+				`;
+			}
+		});
+		</script>
+		
+		<div id="weather" style="margin: 20px; padding: 10px; border: 1px solid #ddd;">
+			<p>Loading weather data...</p>
+		</div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HelpHub. All rights reserved.</p>
+    </footer>
+
+    <script src="charity_profile.js"></script>
+</body>
+
+</html>
+
+
+

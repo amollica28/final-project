@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HelpHub - Home</title>
+</head>
+
+<ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="charities.html">Charities List</a></li>
+  <li><a href="charity_profile.html">Charity Profile</a></li>
+</ul>
+
+<h1> Make A Difference </h1>
+
+<h3> Helphubs mission is to unite passionate volunteers in helping local charities! </h3>
+
+<p> Visit our Charities List page at the top of the screen to find out more about each charity and our Charities Profile page to look at options to donate to! </p>
